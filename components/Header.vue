@@ -15,7 +15,7 @@
                                 </div>
 
                                 <div class="flex flex-1 justify-end md:justify-center">
-                                    <div class="pointer-events-auto md:hidden"><button
+                                    <div class="pointer-events-auto md:hidden"><button @click="toogle = true"
                                             class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-secondary ring-1 shadow-lg shadow-secondary/5 ring-secondary-900/5 backdrop-blur-sm"
                                             type="button">Menu<svg viewBox="0 0 8 6" aria-hidden="true"
                                                 class="ml-3 h-auto w-2 stroke-secondary-500 group-hover:stroke-secondary-700">
@@ -23,32 +23,35 @@
                                                     stroke-linecap="round" stroke-linejoin="round"></path>
                                             </svg></button>
 
-                                        <div class="fixed inset-0 z-50 bg-secondary-800/40 backdrop-blur-xs duration-150 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in""></div>
+                                        <div v-if="toogle"
+                                            class="fixed inset-0 z-50 bg-secondary-800/40 backdrop-blur-xs duration-150 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in">
+                                        </div>
 
-                                        <div class=" fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8
+                                        <div v-if="toogle" class="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8
                                             ring-1 ring-secondary-900/5 duration-150 data-closed:scale-95
                                             data-closed:opacity-0 data-enter:ease-out data-leave:ease-in">
-                                            <div class="flex flex-row-reverse items-center justify-between"><button
-                                                    aria-label="Close menu" class="-m-1 p-1" type="button"
-                                                    data-headlessui-state="open active" data-open="" data-active=""><svg
-                                                        viewBox="0 0 24 24" aria-hidden="true"
-                                                        class="h-6 w-6 text-secondary-500 ">
+                                            <div class="flex flex-row-reverse items-center justify-between">
+                                                <button @click.prevent="toogle = false" aria-label="Close menu"
+                                                    class="-m-1 p-1" type="button" data-headlessui-state="open active"
+                                                    data-open="" data-active=""><svg viewBox="0 0 24 24"
+                                                        aria-hidden="true" class="h-6 w-6 text-secondary-500 ">
                                                         <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none"
                                                             stroke="currentColor" stroke-width="1.5"
                                                             stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    </svg></button>
+                                                    </svg>
+                                                </button>
 
                                             </div>
                                             <nav class="mt-6">
                                                 <ul
                                                     class="-my-2 divide-y divide-secondary-100 text-base text-secondary-800">
-                                                    <li v-for="(item, index) in menu" :key="index"><a
+                                                    <li v-for="(item, index) in menu" :key="index"><a @click.native="toogle=false"
                                                             class="block py-2 text-center" :href="item.hash">{{
                                                                 item.label }}</a></li>
                                                 </ul>
                                                 <div class="mt-6">
-                                                    <a href="#contacto" type="button"
-                                                        class="w-full rounded-full bg-secondary px-3 py-1.5 text-sm font-semibold text-white shadow-lg hover:bg-secondary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">Contacto</a>
+                                                    <a href="#contacto" type="button" @click.native="toogle=false"
+                                                        class="w-full flex items-center justify-center rounded-full bg-secondary px-3 py-1.5 text-sm font-semibold text-white shadow-lg hover:bg-secondary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">Contacto</a>
 
                                                     <ul class="flex items-center justify-center space-x-4 mt-6">
                                                         <li><a href="#" target="_blank" rel="noopener noreferrer"><svg
@@ -127,5 +130,6 @@ const menu = ref([
         label: "Portafolio",
         hash: "#portafolio"
     },
-])
+]);
+const toogle = ref(false);
 </script>
